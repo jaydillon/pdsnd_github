@@ -10,6 +10,7 @@ CITY_DATA = { 'chicago': 'chicago.csv',
 months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun']
 weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
+# Configure filters to apply in front
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
@@ -24,6 +25,9 @@ def get_filters():
     city = str(input('Would you like to see data for Chicago, New York or Washington?\n').lower())
     while city not in CITY_DATA.keys():
         city = str(input('Sorry, it looks like an invalid input. Please try again: Chicago, New York or Washington?\n').lower())
+
+    # TO DO: get user input for month (all, january, february, ... , june)
+    # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
 
     filter_list = ['month', 'weekday', 'both', 'none']
     filter_input = str(input('Would you like to filter the data by month, weekday, both or not at all? Type "none" if you don\'t want to filter anything at all.\n').lower())
@@ -56,7 +60,7 @@ def get_filters():
     print('-'*40)
     return filter_input, city, month, day
 
-
+# Data induction from .csv files
 def load_data(city, month, day):
     """
     Loads data for the specified city and filters by month and day if applicable.
@@ -88,7 +92,7 @@ def load_data(city, month, day):
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
 
-    print('\n\nCalculating The Most Frequent Times of Travel...\n')
+    print('\nCalculating The Most Frequent Times of Travel...\n')
     print('-'*40)
     start_time = time.time()
 
@@ -185,9 +189,9 @@ def user_stats(df):
 
     i = 0
     while see_data == 'y':
-        show_data = df.iloc[i:i+5]
+        show_data = df.iloc[i:i+10]
         print(show_data)
-        i += 5
+        i += 10
         see_data = str(input('Would you like to see some individual trip data? y/n')).lower()
         while see_data not in ['y', 'n']:
             see_data = str(input('Sorry, I cannot understand you. Would you like to see some individual trip data? y/n\n').lower())
