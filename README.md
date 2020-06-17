@@ -11,6 +11,7 @@ Use data provided by Motivate, a bike share system provider for many major citie
 chicago.csv
 new_york_city.csv
 washington.csv
+bikeshare.py
 
 ### Credits
 https://classroom.udacity.com/nanodegrees/nd104/
