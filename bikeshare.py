@@ -200,9 +200,9 @@ def user_stats(df):
 
     i = 0
     while see_data == 'y':
-        show_data = df.iloc[i:i+5]
+        show_data = df.iloc[i:i+10]
         print(show_data)
-        i += 5
+        i += 10
         see_data = str(input('Would you like to see some individual trip data? y/n')).lower()
         while see_data not in ['y', 'n']:
             see_data = str(input('Sorry, I cannot understand you. Would you like to see some individual trip data? y/n\n').lower())
