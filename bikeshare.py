@@ -10,6 +10,7 @@ CITY_DATA = { 'chicago': 'chicago.csv',
 months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun']
 weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
+# Configure filters to apply in front
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
@@ -24,16 +25,16 @@ def get_filters():
     city = str(input('Would you like to see data for Chicago, New York or Washington?\n').lower())
     while city not in CITY_DATA.keys():
         city = str(input('Sorry, it looks like an invalid input. Please try again: Chicago, New York or Washington?\n').lower())
-     
+
     # TO DO: get user input for month (all, january, february, ... , june)
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
-   
+
     filter_list = ['month', 'weekday', 'both', 'none']
     filter_input = str(input('Would you like to filter the data by month, weekday, both or not at all? Type "none" if you don\'t want to filter anything at all.\n').lower())
-    
+
     while filter_input not in filter_list:
         filter_input = str(input('Sorry, it looks like an invalid input. Please try again: month, weekday, both or none?\n').lower())
-    
+
     month = 'all'
     day = 'all'
 
@@ -43,11 +44,11 @@ def get_filters():
     elif filter_input == 'month':
         month = str(input('What month would you like to look at? Jan, Feb, Mar, Apr, May, Jun or all?\n').lower())
         while month not in months:
-            month = str(input('Sorry, it looks like an invalid input. Please try again: Jan, Feb, Mar, Apr, May, Jun or all?\n').lower())        
+            month = str(input('Sorry, it looks like an invalid input. Please try again: Jan, Feb, Mar, Apr, May, Jun or all?\n').lower())
     elif filter_input == 'weekday':
         day = str(input('What weekday would you like to look at? Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday or all?\n').lower())
         while day not in weekdays:
-            day = str(input('Sorry, it looks like an invalid input. Please try again: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday or all?\n').lower())        
+            day = str(input('Sorry, it looks like an invalid input. Please try again: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday or all?\n').lower())
     elif filter_input == 'both':
         month = str(input('What month would you like to look at? Jan, Feb, Mar, Apr, May, Jun or all?\n').lower())
         while month not in months:
@@ -59,7 +60,7 @@ def get_filters():
     print('-'*40)
     return filter_input, city, month, day
 
-
+# Data induction from .csv files
 def load_data(city, month, day):
     """
     Loads data for the specified city and filters by month and day if applicable.
@@ -71,9 +72,9 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-    
+
     df = pd.read_csv(CITY_DATA[city])
-    
+
     df['Start Time'] = pd.to_datetime(df['Start Time'])
     df['month'] = df['Start Time'].dt.month
     df['weekday'] = df['Start Time'].dt.weekday_name
@@ -196,7 +197,7 @@ def user_stats(df):
     see_data = str(input('Would you like to see some individual trip data? y/n')).lower()
     while see_data not in ['y', 'n']:
         see_data = str(input('Sorry, I cannot understand you. Would you like to see some individual trip data? Y/N\n').lower())
-    
+
     i = 0
     while see_data == 'y':
         show_data = df.iloc[i:i+5]
@@ -223,5 +224,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
-
-
